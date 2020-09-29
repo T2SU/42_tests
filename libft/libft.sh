@@ -7,7 +7,7 @@
 #   First Date : 2020-09-28 16:40
 #
 
-export ROOT=$1
+export ROOT="$1"
 
 echo "                                               "
 echo "  ___       ___  ________  ________ _________   "
@@ -26,7 +26,7 @@ echo
 echo
 
 # 라이브러리 셸 스크립트 로드
-. $ROOT/library.sh
+. $ROOT/lib/library.sh
 
 echo "1. <make fclean> 실행"
 make fclean

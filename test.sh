@@ -54,7 +54,7 @@ validate_directory()
 }
 
 # 라이브러리 셸 스크립트 로드
-. ./library.sh
+. $ROOT/lib/library.sh
 
 # 디렉토리 얻기 함수 호출 후 검증 함수 호출
 get_directory $MODE
