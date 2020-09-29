@@ -53,34 +53,23 @@ validate_directory()
 	export TARGET=$_TARGET
 }
 
-# Disclaimer
-disclaimer()
-{
-	echo
-	echo "       <<< Disclaimer >>>"
-	echo
-	echo " * Your use of this script and your reliance on"
-	echo "   any result is solely at your own risk. "
-	echo "   Before run the script, please confirm "
-	echo "   carefully the its sources."
-	echo
-    read -p "continue? (y/n): " ANSWER
-    case $ANSWER in
-        [Yy]* ) break;;
-        * ) exit;;
-    esac
-}
+# 라이브러리 셸 스크립트 로드
+. ./library.sh
 
+# 디렉토리 얻기 함수 호출 후 검증 함수 호출
 get_directory $MODE
 validate_directory $MODE
+
+# 디렉토리 이동
 cd $TARGET
 
 echo "Welcome to 42 test scripts."
+
 
 if [[ $MODE == "libft" ]]
 then
 	disclaimer
 	echo "Libft directory: $TARGET";
-	$ROOT/libft/libft.sh
+	$ROOT/libft/libft.sh $ROOT
 fi
 
