@@ -58,6 +58,9 @@ validate_directory()
 	export TARGET=$_TARGET
 }
 
+# tmp 폴더 생성
+mkdir -p tmp
+
 # 디렉토리 얻기 함수 호출 후 검증 함수 호출
 get_directory $MODE
 validate_directory $MODE

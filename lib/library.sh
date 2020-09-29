@@ -27,11 +27,21 @@ disclaimer()
 reset_score()
 {
 	export SCORE=0
+	export FAIL=0
 }
 
 add_score()
 {
-	export SCORE=$(($SCORE+$1))
+	if [[ $FAIL == 0 ]]
+	then
+		export SCORE=$(($SCORE+$1))
+		echo "$1""점 획득. 현재 점수: $SCORE"
+	fi
+}
+
+fail_score()
+{
+	export FAIL=1
 }
 
 print_score()

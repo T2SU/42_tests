@@ -44,8 +44,12 @@ echo
 echo "2. <make all> 실행"
 make all
 
-COUNT=$(find . -name "libft.a" | wc -l)
-if [[ $COUNT == 0 ]]
+if [ ! $? -eq 0 ]
+then
+	echo "[실패] <make all> 에서 컴파일에 실패했습니다."
+	exit 1
+fi
+if [ ! -f "libft.a" ]
 then
 	echo "[실패] <make all> 실행 후 libft.a 파일이 발견되지 않았습니다."
 	exit 1
@@ -53,7 +57,39 @@ fi
 echo "통과! :D"
 echo
 
+# 점수 리셋
 reset_score
 
-echo "테스트 성공! :D"
+
+# 테스트 수행 함수
+do_test()
+{
+	echo "테스트:: $1"
+	gcc -Wall -Werror -Wextra -I includes/ -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
+	if [ ! -f "$ROOT/tmp/$1.t" ]
+	then
+		echo "[실패] $1 테스트 코드가 컴파일 되지 않았습니다."
+		exit 1
+	fi
+
+	# 테스트 수행
+	$ROOT/tmp/$1.t
+	if [ $? -eq 0 ]
+	then
+		echo "$1 테스트 통과! :D"
+		add_score $2
+	else
+		echo "$1 테스트 실패.. :( [결과 코드:$?]"
+		fail_score
+	fi
+}
+
+# 실제 테스트 수행
+do_test "ft_memset" 5
+do_test "ft_bzero" 5
+
+
+# 결과
+echo
+echo "테스트 완료! :D"
 print_score
