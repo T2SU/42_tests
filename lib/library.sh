@@ -1,5 +1,11 @@
 #!/bin/sh
 
+print_available_modes()
+{
+	echo ":: Available Testing Modes ::"
+	cat config.conf | grep -oE ".*\=" | sed 's/=//g;' | tr '\n' ',' | sed '$s/ $/\n/;s/,/, /g;$s/, $//'
+}
+
 # Disclaimer
 disclaimer()
 {

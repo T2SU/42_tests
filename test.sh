@@ -10,6 +10,9 @@
 export MODE="$1"
 export ROOT=$(pwd)
 
+# 라이브러리 셸 스크립트 로드
+. $ROOT/lib/library.sh
+
 # config.conf 파일을 읽어 TARGET 변수에 저장. 읽어올 수 없는 경우라면 실패.
 get_directory()
 {
@@ -17,7 +20,8 @@ get_directory()
 	#  = 메인 셸 스크립트에 매개변수를 전달하지 않았을 경우.
 	if [ -z $1 ]
 	then
-		echo "Require a mode name"
+		echo "Require a mode name. (usage: ./test.sh {MODE_NAME})"
+		print_available_modes
 		exit 1
 	fi
 
@@ -39,7 +43,8 @@ validate_directory()
 	# 대상 디렉토리를 읽어오지 못했을 경우. (config.conf에 없을 경우?)
 	if [ -z $TARGET ]
 	then
-		echo "Unknown target path. (mode: $MODE)"
+		echo "Unknown mode's target path. (mode: $MODE)"
+		print_available_modes
 		exit 1
 	fi
 
@@ -52,9 +57,6 @@ validate_directory()
 	fi
 	export TARGET=$_TARGET
 }
-
-# 라이브러리 셸 스크립트 로드
-. $ROOT/lib/library.sh
 
 # 디렉토리 얻기 함수 호출 후 검증 함수 호출
 get_directory $MODE
