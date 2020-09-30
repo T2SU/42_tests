@@ -101,6 +101,7 @@ do_test "ft_memcpy" 5
 do_test "ft_memccpy" 5
 do_test "ft_memmove" 5
 do_test "ft_memchr" 5
+do_test "ft_memcmp" 5
 
 
 # 결과
