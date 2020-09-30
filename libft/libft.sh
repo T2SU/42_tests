@@ -89,6 +89,7 @@ do_test "ft_memset" 5
 do_test "ft_bzero" 5
 do_test "ft_memcpy" 5
 do_test "ft_memccpy" 10
+do_test "ft_memmove" 10
 
 
 # 결과
