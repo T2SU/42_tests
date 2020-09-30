@@ -95,6 +95,8 @@ do_test()
 }
 
 # 실제 테스트 수행
+
+## Part. 1
 do_test "ft_memset" 5
 do_test "ft_bzero" 5
 do_test "ft_memcpy" 5
@@ -105,6 +107,8 @@ do_test "ft_memcmp" 5
 do_test "ft_strlen" 5
 do_test "ft_strlcpy" 5
 do_test "ft_strlcat" 5
+do_test "ft_strchr" 5
+do_test "ft_strrchr" 5
 
 
 # 결과
