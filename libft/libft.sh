@@ -35,6 +35,8 @@ then
 	echo "[실패] Norminette 위반!"
 	exit 1
 fi
+echo "통과! :D"
+echo
 
 echo "2. <make fclean> 실행"
 make fclean
@@ -96,8 +98,9 @@ do_test()
 do_test "ft_memset" 5
 do_test "ft_bzero" 5
 do_test "ft_memcpy" 5
-do_test "ft_memccpy" 10
-do_test "ft_memmove" 10
+do_test "ft_memccpy" 5
+do_test "ft_memmove" 5
+do_test "ft_memchr" 5
 
 
 # 결과
