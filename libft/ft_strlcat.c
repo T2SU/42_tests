@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 22:18:20 by smun              #+#    #+#             */
-/*   Updated: 2020/10/01 01:07:50 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/01 01:10:40 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,9 @@ int		main(void)
 		return (10);
 	if (!do_test("HIHIHIHIHI Fourty-two ", "SEOUL!!!!!", 44))
 		return (11);
+	if (!do_test("", "SEOUL!!!!!", 44))
+		return (12);
+	if (!do_test("", "", 0))
+		return (13);
 	return (0);
 }
