@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 14:50:05 by smun              #+#    #+#             */
-/*   Updated: 2020/09/30 15:17:55 by smun             ###   ########.fr       */
+/*   Updated: 2020/09/30 15:29:57 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		test2(void)
 	if (strncmp(g_buf1, g_buf2, 256) != 0)
 		return (4);
 	ret = (char*)ft_memccpy(ret, g_korea, '.', 7);
-	ret2 = (char*)ft_memccpy(ret2, g_korea, '.', 7);
+	ret2 = (char*)memccpy(ret2, g_korea, '.', 7);
 	if (ret2 != ret)
 		return (5);
 	if (strncmp(g_buf1, g_buf2, 256) != 0)
@@ -93,7 +93,7 @@ int		test3(void)
 	if (strncmp(g_buf1, g_buf2, 256) != 0)
 		return (8);
 	ret = (char*)ft_memccpy(ret, g_network, '.', 7);
-	ret2 = (char*)ft_memccpy(ret2, g_network, '.', 7);
+	ret2 = (char*)memccpy(ret2, g_network, '.', 7);
 	if (ret2 != ret)
 		return (9);
 	if (strncmp(g_buf1, g_buf2, 256) != 0)
