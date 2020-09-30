@@ -66,7 +66,7 @@ do_test()
 {
 	echo "테스트:: $1"
 	gcc -Wall -Werror -Wextra -I includes/ -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
-	if [ ! -f "$ROOT/tmp/$1.t" ]
+	if [ ! $? -eq 0 ]
 	then
 		echo "[실패] $1 테스트 코드가 컴파일 되지 않았습니다."
 		exit 1
@@ -87,6 +87,8 @@ do_test()
 # 실제 테스트 수행
 do_test "ft_memset" 5
 do_test "ft_bzero" 5
+do_test "ft_memcpy" 5
+do_test "ft_memccpy" 10
 
 
 # 결과
