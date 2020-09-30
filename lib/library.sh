@@ -24,6 +24,20 @@ disclaimer()
     esac
 }
 
+# Check Norminette
+check_norminette()
+{
+	echo "Norminette 검사..."
+	NN=$(find . \( -name "*.h" -o -name "*.c" \) -print0 | xargs -0 $NORMINETTE)
+	echo "$NN"
+	echo $NN | grep -E "Error|Warning" >&0
+	if [ ! $? -eq 1 ]
+	then
+		return 1
+	fi
+	return 0
+}
+
 reset_score()
 {
 	export SCORE=0
@@ -48,3 +62,13 @@ print_score()
 {
 	echo "Score: $SCORE/100"
 }
+
+if [ ! -f "$ROOT/norminette.conf" ]
+then
+	echo "norminette.conf 파일을 설정해주세요. norminette 검사시 실행할 norminette 클라이언트 프로그램 경로입니다. (norminette.conf.sample 참조)"
+	exit 1
+fi
+
+_NORMINETTE=$(cat $ROOT/norminette.conf)
+export NORMINETTE=$(eval echo $_NORMINETTE)
+echo "Norminette path: $NORMINETTE"

@@ -58,6 +58,17 @@ validate_directory()
 	export TARGET=$_TARGET
 }
 
+# norminette 실행 가능한지 검사
+N=$($NORMINETTE -v)
+if [[ ! $N == *"Norminette version:"* ]]
+then
+	echo "Norminette 를 실행할 수 없습니다. Norminette가 올바르게 설치되어 있는지 확인해주세요."
+	exit 1
+fi
+echo ":: Norminette Information"
+echo $N
+echo
+
 # tmp 폴더 생성
 mkdir -p tmp
 

@@ -28,7 +28,15 @@ echo
 # 라이브러리 셸 스크립트 로드
 . $ROOT/lib/library.sh
 
-echo "1. <make fclean> 실행"
+echo "1. <norminette> 검사 수행"
+check_norminette
+if [ ! $? -eq 0 ]
+then
+	echo "[실패] Norminette 위반!"
+	exit 1
+fi
+
+echo "2. <make fclean> 실행"
 make fclean
 
 COUNT=$(find . -name "*.o" -o -name "libft.a" | wc -l)
@@ -41,7 +49,7 @@ fi
 echo "통과! :D"
 echo
 
-echo "2. <make all> 실행"
+echo "3. <make all> 실행"
 make all
 
 if [ ! $? -eq 0 ]
