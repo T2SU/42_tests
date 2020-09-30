@@ -84,7 +84,7 @@ echo "Welcome to 42 test scripts."
 
 if [[ $MODE == "libft" ]]
 then
-	disclaimer
+	# disclaimer
 	echo "Libft directory: $TARGET";
 	$ROOT/libft/libft.sh $ROOT
 fi
