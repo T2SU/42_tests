@@ -103,6 +103,8 @@ do_test "ft_memmove" 5
 do_test "ft_memchr" 5
 do_test "ft_memcmp" 5
 do_test "ft_strlen" 5
+do_test "ft_strlcpy" 5
+do_test "ft_strlcat" 5
 
 
 # 결과
