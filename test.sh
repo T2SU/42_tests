@@ -7,11 +7,36 @@
 #   First Date : 2020-09-28 16:22
 #
 
-export MODE="$1"
 export ROOT=$(pwd)
+export SKIP_NORMINETTE=0
 
 # 라이브러리 셸 스크립트 로드
 . $ROOT/lib/library.sh
+
+# 옵션 파싱
+for i in "$@"
+do
+case $i in
+    -sn|--skip-norminette)
+		export SKIP_NORMINETTE=1
+		shift # past argument=value
+    ;;
+    --help)
+		echo "usage: test.sh [-sn|--skip-norminette] [modes]"
+		echo "display all available modes: test.sh --display-modes"
+		exit
+    ;;
+    --display-modes)
+		print_available_modes
+		exit
+    ;;
+    *)
+    	break
+    ;;
+esac
+done
+
+export MODE="$1"
 
 # config.conf 파일을 읽어 TARGET 변수에 저장. 읽어올 수 없는 경우라면 실패.
 get_directory()
@@ -69,15 +94,18 @@ else
 fi
 
 # norminette 실행 가능한지 검사
-N=$($NORMINETTE -v)
-if [[ ! $N == *"Norminette version:"* ]]
+if [ $SKIP_NORMINETTE -eq 0 ]
 then
-	echo "Norminette 를 실행할 수 없습니다. Norminette가 올바르게 설치되어 있는지 확인해주세요."
-	exit 1
+	N=$($NORMINETTE -v)
+	if [[ ! $N == *"Norminette version:"* ]]
+	then
+		echo "Norminette 를 실행할 수 없습니다. Norminette가 올바르게 설치되어 있는지 확인해주세요."
+		exit 1
+	fi
+	echo ":: Norminette Information"
+	echo $N
+	echo
 fi
-echo ":: Norminette Information"
-echo $N
-echo
 
 # tmp 폴더 생성
 mkdir -p tmp
@@ -96,6 +124,6 @@ if [[ $MODE == "libft" ]]
 then
 	# disclaimer
 	echo "Libft directory: $TARGET";
-	$ROOT/libft/libft.sh $ROOT
+	$ROOT/libft/libft.sh "$ROOT" $SKIP_NORMINETTE
 fi
 

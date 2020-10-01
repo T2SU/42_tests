@@ -8,6 +8,7 @@
 #
 
 export ROOT="$1"
+export SKIP_NORMINETTE="$2"
 
 echo "                                               "
 echo "  ___       ___  ________  ________ _________   "
@@ -28,15 +29,20 @@ echo
 # 라이브러리 셸 스크립트 로드
 . $ROOT/lib/library.sh
 
-echo "1. <norminette> 검사 수행"
-check_norminette
-if [ ! $? -eq 0 ]
+if [ $SKIP_NORMINETTE -eq 0 ]
 then
-	echo "[실패] Norminette 위반!"
-	exit 1
+	echo "1. <norminette> 검사 수행"
+	check_norminette
+	if [ ! $? -eq 0 ]
+	then
+		echo "[실패] Norminette 위반!"
+		exit 1
+	fi
+	echo "통과! :D"
+	echo
+else
+	echo "1. <norminette> 검사 통과!"
 fi
-echo "통과! :D"
-echo
 
 echo "2. <make fclean> 실행"
 make fclean
@@ -110,7 +116,6 @@ do_test "ft_strlcpy" 5
 do_test "ft_strlcat" 5
 do_test "ft_strchr" 5
 do_test "ft_strrchr" 5
-
 do_test "ft_strnstr" 5
 do_test "ft_strncmp" 5
 do_test "ft_atoi" 5
