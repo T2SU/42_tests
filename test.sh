@@ -12,6 +12,7 @@ export SKIP_NORMINETTE=0
 
 # 라이브러리 셸 스크립트 로드
 . $ROOT/lib/library.sh
+echo
 
 # 옵션 파싱
 for i in "$@"
@@ -84,14 +85,23 @@ validate_directory()
 }
 
 # 시스템 정보 출력
+echo ":: HostName"
 hostname
+echo
+
+echo ":: System Information"
 uname -a
+echo
+
 if [[ $(uname -s) == "Darwin" ]]
 then
+echo ":: Apple Clang Information"
 	clang --version
 else
+echo ":: GCC Information"
 	gcc --version
 fi
+echo
 
 # norminette 실행 가능한지 검사
 if [ $SKIP_NORMINETTE -eq 0 ]
@@ -99,7 +109,7 @@ then
 	N=$($NORMINETTE -v)
 	if [[ ! $N == *"Norminette version:"* ]]
 	then
-		echo "Norminette 를 실행할 수 없습니다. Norminette가 올바르게 설치되어 있는지 확인해주세요."
+		echo "Norminette 를 실행할 수 없습니다. Norminette가 올바르게 설치되어 있는지 확인해주세요. 또는, --skip-norminette 옵션을 사용해 Norminette 검사를 생략하는 것을 고려해보세요."
 		exit 1
 	fi
 	echo ":: Norminette Information"
