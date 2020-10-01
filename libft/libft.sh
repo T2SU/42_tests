@@ -119,7 +119,7 @@ do_test "ft_strrchr" 5
 do_test "ft_strnstr" 5
 do_test "ft_strncmp" 5
 do_test "ft_atoi" 5
-# do_test "ft_isalpha" 5
+do_test "ft_isalpha" 5
 # do_test "ft_isdigit" 5
 # do_test "ft_isalnum" 5
 # do_test "ft_isascii" 5
