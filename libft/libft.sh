@@ -126,6 +126,8 @@ do_test "ft_isascii" 1
 do_test "ft_isprint" 1
 do_test "ft_toupper" 1
 do_test "ft_tolower" 1
+do_test "ft_calloc" 3
+do_test "ft_strdup" 3
 
 # 결과
 echo
