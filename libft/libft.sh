@@ -111,6 +111,17 @@ do_test "ft_strlcat" 5
 do_test "ft_strchr" 5
 do_test "ft_strrchr" 5
 
+do_test "ft_strnstr" 5
+# do_test "ft_strncmp" 5
+# do_test "ft_atoi" 5
+# do_test "ft_isalpha" 5
+# do_test "ft_isdigit" 5
+# do_test "ft_isalnum" 5
+# do_test "ft_isascii" 5
+# do_test "ft_isprint" 5
+# do_test "ft_toupper" 5
+# do_test "ft_tolower" 5
+
 # 결과
 echo
 echo "테스트 완료! :D"
