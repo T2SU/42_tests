@@ -84,12 +84,13 @@ do_test()
 
 	# 테스트 수행
 	$ROOT/tmp/$1.t
-	if [ $? -eq 0 ]
+	EXECUTABLE_STATUS_CODE=$?
+	if [ $EXECUTABLE_STATUS_CODE -eq 0 ]
 	then
 		echo "$1 테스트 통과! :D"
 		add_score $2
 	else
-		echo "$1 테스트 실패.. :( [결과 코드:$?]"
+		echo "$1 테스트 실패.. :( [결과 코드:$EXECUTABLE_STATUS_CODE]"
 		fail_score
 	fi
 }
@@ -109,7 +110,6 @@ do_test "ft_strlcpy" 5
 do_test "ft_strlcat" 5
 do_test "ft_strchr" 5
 do_test "ft_strrchr" 5
-
 
 # 결과
 echo
