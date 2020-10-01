@@ -58,6 +58,16 @@ validate_directory()
 	export TARGET=$_TARGET
 }
 
+# 시스템 정보 출력
+hostname
+uname -a
+if [[ $(uname -s) == "Darwin" ]]
+then
+	clang --version
+else
+	gcc --version
+fi
+
 # norminette 실행 가능한지 검사
 N=$($NORMINETTE -v)
 if [[ ! $N == *"Norminette version:"* ]]
