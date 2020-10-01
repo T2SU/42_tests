@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 17:51:07 by smun              #+#    #+#             */
-/*   Updated: 2020/10/01 18:07:43 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/01 18:14:51 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	do_test(const char *s, const char *find, size_t len)
 	r2 = strnstr(s, find, len);
 	if (r1 != r2 || (r1 != 0 && strcmp(r1, r2)))
 	{
-		printf("[실패] haystack=[%s needle=[%s]\n", s, find);
+		printf("[실패] haystack=[%s] needle=[%s]\n", s, find);
 		printf("Your=%s\n", r1);
 		printf("CStdLib=%s\n", r2);
 		return (FALSE);
