@@ -104,28 +104,28 @@ do_test()
 # 실제 테스트 수행
 
 ## Part. 1
-do_test "ft_memset" 5
-do_test "ft_bzero" 5
-do_test "ft_memcpy" 5
+do_test "ft_memset" 2
+do_test "ft_bzero" 1
+do_test "ft_memcpy" 3
 do_test "ft_memccpy" 5
 do_test "ft_memmove" 5
 do_test "ft_memchr" 5
 do_test "ft_memcmp" 5
-do_test "ft_strlen" 5
+do_test "ft_strlen" 1
 do_test "ft_strlcpy" 5
-do_test "ft_strlcat" 5
+do_test "ft_strlcat" 10
 do_test "ft_strchr" 5
 do_test "ft_strrchr" 5
 do_test "ft_strnstr" 5
 do_test "ft_strncmp" 5
 do_test "ft_atoi" 5
-do_test "ft_isalpha" 5
-do_test "ft_isdigit" 5
-do_test "ft_isalnum" 5
-do_test "ft_isascii" 5
-do_test "ft_isprint" 5
-do_test "ft_toupper" 5
-do_test "ft_tolower" 5
+do_test "ft_isalpha" 1
+do_test "ft_isdigit" 1
+do_test "ft_isalnum" 1
+do_test "ft_isascii" 1
+do_test "ft_isprint" 1
+do_test "ft_toupper" 1
+do_test "ft_tolower" 1
 
 # 결과
 echo

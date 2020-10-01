@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 17:51:07 by smun              #+#    #+#             */
-/*   Updated: 2020/10/01 18:14:51 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/01 20:15:50 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ int		main(void)
 		return (11);
 	if (!do_test("42 SEOUL Campus", "\0", 30))
 		return (12);
+	if (!do_test("color molor polor aolor", "molor", 10))
+		return (13);
 	return (0);
 }
