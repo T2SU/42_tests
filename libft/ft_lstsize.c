@@ -1,34 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 07:09:31 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 07:07:05 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
-
-static void			putstr(const char *s)
-{
-	write(STDOUT_FILENO, s, strlen(s));
-}
-
-static void			print_compare(const char *s, const char *e)
-{
-	putstr("Expect: ");
-	putstr(e);
-	putstr("\n");
-	putstr("Your: ");
-	putstr(s);
-	putstr("\n");
-}
 
 t_list				*newlst(void *content)
 {
@@ -44,13 +27,12 @@ t_list				*newlst(void *content)
 
 int					main(void)
 {
-	char			*chr[4] = {"1", "2", "3", "4"};
-	t_list			*lst[4];
-	t_list			*lst_f;
+	char			*chr[10] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+	t_list			*lst[10];
 	unsigned int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 10)
 	{
 		if (!(lst[i] = newlst(chr[i])))
 		{
@@ -60,26 +42,17 @@ int					main(void)
 		}
 		i++;
 	}
-	i = 3;
-	lst_f = lst[i];
-	while (i > 0)
-	{
-		ft_lstadd_front(&lst_f, lst[i - 1]);
-		if (lst_f != lst[i - 1] || strcmp(chr[i - 1], lst_f->content) ||
-			lst_f->next == NULL)
-		{
-			print_compare(lst_f->content, chr[i - 1]);
-			return (1);
-		}
-		if (lst_f->next->content != chr[i])
-		{
-			print_compare(lst_f->next->content, chr[i]);
-			return (1);
-		}
-		i--;
-	}
 	i = 0;
-	while (i < 4)
+	while (i < 9)
+	{
+		lst[i]->next = lst[i + 1];
+		i++;
+	}
+	size_t			sz = ft_lstsize(lst[0]);
+	i = 0;
+	while (i < 10)
 		free(lst[i++]);
+	if (sz != 10)
+		return (1);
 	return (0);
 }
