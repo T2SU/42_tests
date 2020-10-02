@@ -2,3 +2,4 @@ config.conf
 norminette.conf
 .vscode/
 tmp/
+test_output
