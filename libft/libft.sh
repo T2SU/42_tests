@@ -107,18 +107,18 @@ do_test()
 do_test "ft_memset" 2
 do_test "ft_bzero" 1
 do_test "ft_memcpy" 3
-do_test "ft_memccpy" 5
-do_test "ft_memmove" 5
-do_test "ft_memchr" 5
-do_test "ft_memcmp" 5
+do_test "ft_memccpy" 2
+do_test "ft_memmove" 3
+do_test "ft_memchr" 3
+do_test "ft_memcmp" 3
 do_test "ft_strlen" 1
-do_test "ft_strlcpy" 5
-do_test "ft_strlcat" 10
-do_test "ft_strchr" 5
-do_test "ft_strrchr" 5
-do_test "ft_strnstr" 5
-do_test "ft_strncmp" 5
-do_test "ft_atoi" 5
+do_test "ft_strlcpy" 3
+do_test "ft_strlcat" 5
+do_test "ft_strchr" 1
+do_test "ft_strrchr" 1
+do_test "ft_strnstr" 1
+do_test "ft_strncmp" 1
+do_test "ft_atoi" 1
 do_test "ft_isalpha" 1
 do_test "ft_isdigit" 1
 do_test "ft_isalnum" 1
@@ -128,8 +128,11 @@ do_test "ft_toupper" 1
 do_test "ft_tolower" 1
 do_test "ft_calloc" 3
 do_test "ft_strdup" 3
+
+## Part. 2
 do_test "ft_substr" 3
 do_test "ft_strjoin" 3
+do_test "ft_strtrim" 3
 
 # 결과
 echo
