@@ -9,6 +9,7 @@
 
 export ROOT="$1"
 export SKIP_NORMINETTE="$2"
+TEST_BY_FD=0
 
 echo "                                               "
 echo "  ___       ___  ________  ________ _________   "
@@ -89,12 +90,29 @@ do_test()
 	fi
 
 	# 테스트 수행
-	$ROOT/tmp/$1.t
+	if [ $TEST_BY_FD -eq 1 ]
+	then
+		$ROOT/tmp/$1.t "${ROOT}/tmp"
+	else
+		$ROOT/tmp/$1.t
+	fi
 	EXECUTABLE_STATUS_CODE=$?
 	if [ $EXECUTABLE_STATUS_CODE -eq 0 ]
 	then
 		echo "$1 테스트 통과! :D"
 		add_score $2
+	elif [ $EXECUTABLE_STATUS_CODE -eq 134 ]
+	then
+		echo "$1 테스트 실패.. :( [Abort]"
+		fail_score
+	elif [ $EXECUTABLE_STATUS_CODE -eq 138 ]
+	then
+		echo "$1 테스트 실패.. :( [Bus Error]"
+		fail_score
+	elif [ $EXECUTABLE_STATUS_CODE -eq 139 ]
+	then
+		echo "$1 테스트 실패.. :( [Segmentation Fault]"
+		fail_score
 	else
 		echo "$1 테스트 실패.. :( [결과 코드:$EXECUTABLE_STATUS_CODE]"
 		fail_score
@@ -136,6 +154,14 @@ do_test "ft_strtrim" 3
 do_test "ft_split" 3
 do_test "ft_itoa" 3
 do_test "ft_strmapi" 3
+
+TEST_BY_FD=1
+do_test "ft_putchar_fd" 1
+do_test "ft_putstr_fd" 1
+do_test "ft_putendl_fd" 1
+do_test "ft_putnbr_fd" 3
+TEST_BY_FD=0
+
 
 # 결과
 echo
