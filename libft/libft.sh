@@ -133,6 +133,7 @@ do_test "ft_strdup" 3
 do_test "ft_substr" 3
 do_test "ft_strjoin" 3
 do_test "ft_strtrim" 3
+do_test "ft_split" 3
 
 # 결과
 echo
