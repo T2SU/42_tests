@@ -20,11 +20,13 @@ do
 case $i in
     -sn|--skip-norminette)
 		export SKIP_NORMINETTE=1
-		shift # past argument=value
+		shift
     ;;
     --help)
-		echo "usage: test.sh [-sn|--skip-norminette] [modes]"
+		echo "usage: test.sh [-sn|--skip-norminette] [modes] (options)"
 		echo "display all available modes: test.sh --display-modes"
+		echo "* options: depends on running mode."
+		echo "  - libft: functions what you want test. (ft_strlen, ft_memset, ...)"
 		exit
     ;;
     --display-modes)
@@ -38,6 +40,7 @@ esac
 done
 
 export MODE="$1"
+shift
 
 # config.conf 파일을 읽어 TARGET 변수에 저장. 읽어올 수 없는 경우라면 실패.
 get_directory()
@@ -134,6 +137,6 @@ if [[ $MODE == "libft" ]]
 then
 	# disclaimer
 	echo "Libft directory: $TARGET";
-	$ROOT/libft/libft.sh "$ROOT" $SKIP_NORMINETTE
+	$ROOT/libft/libft.sh "$ROOT" $SKIP_NORMINETTE "$@"
 fi
 

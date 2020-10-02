@@ -8,8 +8,12 @@
 #
 
 export ROOT="$1"
-export SKIP_NORMINETTE="$2"
-TEST_BY_FD=0
+shift
+export SKIP_NORMINETTE="$1"
+shift
+export OPTIONS=$(echo "$@" | tr ' ' '\n')
+export OPTIONS_NUM="$#"
+shift $#
 
 echo "                                               "
 echo "  ___       ___  ________  ________ _________   "
@@ -74,96 +78,133 @@ fi
 echo "통과! :D"
 echo
 
-# 점수 리셋
-reset_score
-
+contains_test()
+{
+	for x in $OPTIONS
+	do
+		if [[ $x == $1 ]]
+		then
+			return 1
+		fi
+	done
+	return 0
+}
 
 # 테스트 수행 함수
 do_test()
 {
-	echo "테스트:: $1"
-	gcc -Wall -Werror -Wextra -I includes/ -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
-	if [ ! $? -eq 0 ]
+	contains_test "$1";
+	R=$?
+	if [ ${OPTIONS_NUM} -eq 0 ] || [ $R -ne 0 ]
 	then
-		echo "[실패] $1 테스트 코드가 컴파일 되지 않았습니다."
-		exit 1
-	fi
+		echo "테스트:: $1"
+		gcc -Wall -Werror -Wextra -I includes/ -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
+		if [ ! $? -eq 0 ]
+		then
+			echo "[실패] $1 테스트 코드가 컴파일 되지 않았습니다."
+			exit 1
+		fi
 
-	# 테스트 수행
-	if [ $TEST_BY_FD -eq 1 ]
-	then
+		# 테스트 수행
 		$ROOT/tmp/$1.t "${ROOT}/tmp"
-	else
-		$ROOT/tmp/$1.t
-	fi
-	EXECUTABLE_STATUS_CODE=$?
-	if [ $EXECUTABLE_STATUS_CODE -eq 0 ]
-	then
-		echo "$1 테스트 통과! :D"
-		add_score $2
-	elif [ $EXECUTABLE_STATUS_CODE -eq 134 ]
-	then
-		echo "$1 테스트 실패.. :( [Abort]"
-		fail_score
-	elif [ $EXECUTABLE_STATUS_CODE -eq 138 ]
-	then
-		echo "$1 테스트 실패.. :( [Bus Error]"
-		fail_score
-	elif [ $EXECUTABLE_STATUS_CODE -eq 139 ]
-	then
-		echo "$1 테스트 실패.. :( [Segmentation Fault]"
-		fail_score
-	else
-		echo "$1 테스트 실패.. :( [결과 코드:$EXECUTABLE_STATUS_CODE]"
-		fail_score
+		EXECUTABLE_STATUS_CODE=$?
+		if [ $EXECUTABLE_STATUS_CODE -eq 0 ]
+		then
+			echo "$1 테스트 통과! :D"
+			add_score 1
+		elif [ $EXECUTABLE_STATUS_CODE -eq 134 ]
+		then
+			echo "$1 테스트 실패.. :( [Abort]"
+			fail_score
+		elif [ $EXECUTABLE_STATUS_CODE -eq 138 ]
+		then
+			echo "$1 테스트 실패.. :( [Bus Error]"
+			fail_score
+		elif [ $EXECUTABLE_STATUS_CODE -eq 139 ]
+		then
+			echo "$1 테스트 실패.. :( [Segmentation Fault]"
+			fail_score
+		else
+			echo "$1 테스트 실패.. :( [결과 코드:$EXECUTABLE_STATUS_CODE]"
+			fail_score
+		fi
+		add_total 1
 	fi
 }
 
 # 실제 테스트 수행
 
+echo
+echo "-------------------------------"
+echo
 ## Part. 1
-do_test "ft_memset" 2
-do_test "ft_bzero" 1
-do_test "ft_memcpy" 3
-do_test "ft_memccpy" 2
-do_test "ft_memmove" 3
-do_test "ft_memchr" 3
-do_test "ft_memcmp" 3
-do_test "ft_strlen" 1
-do_test "ft_strlcpy" 3
-do_test "ft_strlcat" 5
-do_test "ft_strchr" 1
-do_test "ft_strrchr" 1
-do_test "ft_strnstr" 1
-do_test "ft_strncmp" 1
-do_test "ft_atoi" 1
-do_test "ft_isalpha" 1
-do_test "ft_isdigit" 1
-do_test "ft_isalnum" 1
-do_test "ft_isascii" 1
-do_test "ft_isprint" 1
-do_test "ft_toupper" 1
-do_test "ft_tolower" 1
-do_test "ft_calloc" 3
-do_test "ft_strdup" 3
+echo ":: Part .1 functions"
+echo
+reset_score
+do_test "ft_memset"
+do_test "ft_bzero"
+do_test "ft_memcpy"
+do_test "ft_memccpy"
+do_test "ft_memmove"
+do_test "ft_memchr"
+do_test "ft_memcmp"
+do_test "ft_strlen"
+do_test "ft_strlcpy"
+do_test "ft_strlcat"
+do_test "ft_strchr"
+do_test "ft_strrchr"
+do_test "ft_strnstr"
+do_test "ft_strncmp"
+do_test "ft_atoi"
+do_test "ft_isalpha"
+do_test "ft_isdigit"
+do_test "ft_isalnum"
+do_test "ft_isascii"
+do_test "ft_isprint"
+do_test "ft_toupper"
+do_test "ft_tolower"
+do_test "ft_calloc"
+do_test "ft_strdup"
+echo
+print_score
+echo
+echo "-------------------------------"
+echo
 
 ## Part. 2
-do_test "ft_substr" 3
-do_test "ft_strjoin" 3
-do_test "ft_strtrim" 3
-do_test "ft_split" 3
-do_test "ft_itoa" 3
-do_test "ft_strmapi" 3
+echo ":: Part .2 functions"
+echo
+reset_score
+do_test "ft_substr"
+do_test "ft_strjoin"
+do_test "ft_strtrim"
+do_test "ft_split"
+do_test "ft_itoa"
+do_test "ft_strmapi"
+do_test "ft_putchar_fd"
+do_test "ft_putstr_fd"
+do_test "ft_putendl_fd"
+do_test "ft_putnbr_fd"
+echo
+print_score
+echo
+echo "-------------------------------"
+echo
 
-TEST_BY_FD=1
-do_test "ft_putchar_fd" 1
-do_test "ft_putstr_fd" 1
-do_test "ft_putendl_fd" 1
-do_test "ft_putnbr_fd" 3
-TEST_BY_FD=0
-
+## Bonus Part.
+echo ":: Part .Bonus functions"
+echo
+reset_score
+# do_test "ft_lstnew"
+# do_test "ft_lstadd_front"
+# do_test "ft_lstsize"
+# do_test "ft_lstlast"
+echo
+print_score
+echo
+echo "-------------------------------"
+echo
 
 # 결과
 echo
 echo "테스트 완료! :D"
-print_score

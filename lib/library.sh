@@ -42,6 +42,7 @@ reset_score()
 {
 	export SCORE=0
 	export FAIL=0
+	export TOTAL=0
 }
 
 add_score()
@@ -53,6 +54,11 @@ add_score()
 	fi
 }
 
+add_total()
+{
+	export TOTAL=$(($TOTAL+$1))
+}
+
 fail_score()
 {
 	export FAIL=1
@@ -60,7 +66,7 @@ fail_score()
 
 print_score()
 {
-	echo "Score: $SCORE/100"
+	echo "Score: $SCORE/$TOTAL"
 }
 
 if [ ! -f "$ROOT/norminette.conf" ]
