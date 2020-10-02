@@ -135,6 +135,7 @@ do_test "ft_strjoin" 3
 do_test "ft_strtrim" 3
 do_test "ft_split" 3
 do_test "ft_itoa" 3
+do_test "ft_strmapi" 3
 
 # 결과
 echo
