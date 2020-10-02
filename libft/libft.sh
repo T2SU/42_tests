@@ -194,9 +194,18 @@ echo
 ## Bonus Part.
 echo ":: Part .Bonus functions"
 echo
+
+echo "<make bonus> 실행"
+make bonus
+if [ ! $? -eq 0 ]
+then
+	echo "[실패] <make bonus> 에서 컴파일에 실패했습니다."
+fi
+echo
+
 reset_score
-# do_test "ft_lstnew"
-# do_test "ft_lstadd_front"
+do_test "ft_lstnew"
+do_test "ft_lstadd_front"
 # do_test "ft_lstsize"
 # do_test "ft_lstlast"
 echo
