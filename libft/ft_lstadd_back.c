@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 07:43:21 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 07:43:16 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,19 @@ t_list				*newlst(void *content)
 	return (lst);
 }
 
+t_list				*ft_lstlast(t_list *lst)
+{
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
+
 int					main(void)
 {
 	char			*chr[4] = {"1", "2", "3", "4"};
 	t_list			*lst[4];
-	t_list			*lst_f;
+	t_list			*lst_b;
 	unsigned int	i;
 
 	i = 0;
@@ -60,24 +68,18 @@ int					main(void)
 		}
 		i++;
 	}
-	i = 3;
-	lst_f = NULL;
-	ft_lstadd_front(&lst_f, lst[i]);
-	while (i > 0)
+	i = 0;
+	lst_b = NULL;
+	ft_lstadd_back(&lst_b, lst[i]);
+	while (i < 3)
 	{
-		ft_lstadd_front(&lst_f, lst[i - 1]);
-		if (lst_f != lst[i - 1] || strcmp(chr[i - 1], lst_f->content) ||
-			lst_f->next == NULL)
+		ft_lstadd_back(&lst_b, lst[i + 1]);
+		if (strcmp(ft_lstlast(lst_b)->content, chr[i + 1]))
 		{
-			print_compare(lst_f->content, chr[i - 1]);
+			print_compare(ft_lstlast(lst_b)->content, chr[i + 1]);
 			return (1);
 		}
-		if (lst_f->next->content != chr[i])
-		{
-			print_compare(lst_f->next->content, chr[i]);
-			return (1);
-		}
-		i--;
+		i++;
 	}
 	i = 0;
 	while (i < 4)
