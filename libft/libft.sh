@@ -209,6 +209,7 @@ do_test "ft_lstadd_front"
 do_test "ft_lstsize"
 do_test "ft_lstlast"
 do_test "ft_lstadd_back"
+do_test "ft_lstdelone"
 echo
 print_score
 echo
