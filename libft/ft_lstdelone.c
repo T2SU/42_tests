@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 17:15:17 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:18:52 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ t_list				*newlst(void *content)
 	return (lst);
 }
 
-struct sigaction	sigact;
-
-static void			cleanup(void)
-{
-	sigemptyset(&sigact.sa_mask);
-}
-
 static void			signal_handler(int sig)
 {
 	if (sig == SIGABRT)
@@ -50,14 +43,6 @@ static void			signal_handler(int sig)
 		putstr("[Success] t_list was freed properly! Don't Panic!\n");
 		exit(0);
 	}
-}
-
-void				init_signals(void)
-{
-	sigact.sa_handler = signal_handler;
-	sigemptyset(&sigact.sa_mask);
-	sigact.sa_flags = 0;
-	sigaction(SIGABRT, &sigact, (struct sigaction*)NULL);
 }
 
 static void			del(void *content)
@@ -102,9 +87,9 @@ int					main(void)
 	while (i < 4)
 		if (deleted[i++] != TRUE)
 			return (-1);
-	atexit(cleanup);
-	init_signals();
+	signal(SIGABRT, signal_handler);
 	free(lst[3]);
+	putstr("[Failed] t_list was not freed properly!\n");
 	return (-1);
 }
 
