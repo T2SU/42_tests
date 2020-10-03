@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 17:18:52 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:40:03 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <string.h>
 #include <signal.h>
 
-char				deleted[4];
+t_bool				deleted[4];
 char				*chr[4] = {"1", "2", "3", "4"};
 
 static void			putstr(const char *s)
@@ -47,13 +47,13 @@ static void			signal_handler(int sig)
 
 static void			del(void *content)
 {
-	if (strcmp(content, chr[0]))
+	if (!strcmp(content, chr[0]))
 		deleted[0] = TRUE;
-	if (strcmp(content, chr[1]))
+	if (!strcmp(content, chr[1]))
 		deleted[1] = TRUE;
-	if (strcmp(content, chr[2]))
+	if (!strcmp(content, chr[2]))
 		deleted[2] = TRUE;
-	if (strcmp(content, chr[3]))
+	if (!strcmp(content, chr[3]))
 		deleted[3] = TRUE;
 }
 
@@ -82,11 +82,17 @@ int					main(void)
 		ft_lstadd_back(&lst_b, lst[i++ + 1]);
 	i = 0;
 	while (i < 4)
-		ft_lstdelone(lst[i++], &del);
+	{
+		ft_lstdelone(lst[i], (i & 1) ? (&del) : NULL);
+		i++;
+	}
 	i = 0;
 	while (i < 4)
-		if (deleted[i++] != TRUE)
+	{
+		if ((i & 1) != deleted[i])
 			return (-1);
+		i++;
+	}
 	signal(SIGABRT, signal_handler);
 	free(lst[3]);
 	putstr("[Failed] t_list was not freed properly!\n");
