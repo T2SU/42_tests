@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 17:58:19 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 18:01:21 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
 
-t_bool				deleted[10];
+t_bool				iterated[10];
 char				*chr[10] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-
-static void			putstr(const char *s)
-{
-	write(STDOUT_FILENO, s, strlen(s));
-}
 
 t_list				*newlst(void *content)
 {
@@ -36,16 +30,7 @@ t_list				*newlst(void *content)
 	return (lst);
 }
 
-static void			signal_handler(int sig)
-{
-	if (sig == SIGABRT)
-	{
-		putstr("[Success] t_list was freed properly! Don't Panic!\n");
-		exit(0);
-	}
-}
-
-static void			del(void *content)
+static void			iter(void *content)
 {
 	unsigned int	i;
 
@@ -53,7 +38,7 @@ static void			del(void *content)
 	while (i < 10)
 	{
 		if (!strcmp(content, chr[i]))
-			deleted[i] = TRUE;
+			iterated[i] = TRUE;
 		i++;
 	}
 }
@@ -91,7 +76,7 @@ int					main(void)
 				free(lst[i--]);
 			return (1);
 		}
-		deleted[i] = 0;
+		iterated[i] = 0;
 		i++;
 	}
 	i = 0;
@@ -99,15 +84,13 @@ int					main(void)
 	lst_push(&lst_b, lst[i]);
 	while (i < 9)
 		lst_push(&lst_b, lst[i++ + 1]);
-	ft_lstclear(&lst_b, &del);
+	ft_lstiter(lst_b, &iter);
 	i = 0;
 	while (i < 10)
-		if (!deleted[i++])
+	{
+		if (!iterated[i])
 			return (-1);
-	if (lst_b != NULL)
-		return (-2);
-	signal(SIGABRT, signal_handler);
-	free(lst[9]);
-	putstr("[Failed] t_list was not freed properly!\n");
-	return (-1);
+		free(lst[i++]);
+	}
+	return (0);
 }
