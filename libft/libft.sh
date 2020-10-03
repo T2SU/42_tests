@@ -212,6 +212,7 @@ do_test "ft_lstadd_back"
 do_test "ft_lstdelone"
 do_test "ft_lstclear"
 do_test "ft_lstiter"
+do_test "ft_lstmap"
 echo
 print_score
 echo
