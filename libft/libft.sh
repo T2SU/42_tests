@@ -210,6 +210,7 @@ do_test "ft_lstsize"
 do_test "ft_lstlast"
 do_test "ft_lstadd_back"
 do_test "ft_lstdelone"
+do_test "ft_lstclear"
 echo
 print_score
 echo

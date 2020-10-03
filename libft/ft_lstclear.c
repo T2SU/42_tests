@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 17:48:41 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:52:57 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <string.h>
 #include <signal.h>
 
-t_bool				deleted[4];
-char				*chr[4] = {"1", "2", "3", "4"};
+t_bool				deleted[10];
+char				*chr[10] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
 static void			putstr(const char *s)
 {
@@ -47,14 +47,20 @@ static void			signal_handler(int sig)
 
 static void			del(void *content)
 {
-	if (!strcmp(content, chr[0]))
-		deleted[0] = TRUE;
-	if (!strcmp(content, chr[1]))
-		deleted[1] = TRUE;
-	if (!strcmp(content, chr[2]))
-		deleted[2] = TRUE;
-	if (!strcmp(content, chr[3]))
-		deleted[3] = TRUE;
+	unsigned int	i;
+
+	i = 0;
+	while (i < 10)
+	{
+		if (!strcmp(content, chr[i]))
+			deleted[i] = TRUE;
+		i++;
+	}
+}
+
+t_list				*ft_lstlast(t_list *lst)
+{
+	return (lst);
 }
 
 void				lst_push(t_list **lst, t_list *new)
@@ -77,12 +83,12 @@ void				lst_push(t_list **lst, t_list *new)
 
 int					main(void)
 {
-	t_list			*lst[4];
+	t_list			*lst[10];
 	t_list			*lst_b;
 	unsigned int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 10)
 	{
 		if (!(lst[i] = newlst(chr[i])))
 		{
@@ -96,25 +102,17 @@ int					main(void)
 	i = 0;
 	lst_b = NULL;
 	lst_push(&lst_b, lst[i]);
-	while (i < 3)
+	while (i < 9)
 		lst_push(&lst_b, lst[i++ + 1]);
+	ft_lstclear(&lst_b, &del);
 	i = 0;
-	while (i < 4)
-	{
-		//ft_lstdelone(lst[i], (i & 1) ? (&del) : NULL);
-		ft_lstdelone(lst[i], &del);
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		//if ((i & 1) != deleted[i])
-		if (!deleted[i])
+	while (i < 10)
+		if (!deleted[i++])
 			return (-1);
-		i++;
-	}
+	if (lst_b != NULL)
+		return (-2);
 	signal(SIGABRT, signal_handler);
-	free(lst[3]);
+	free(lst[9]);
 	putstr("[Failed] t_list was not freed properly!\n");
 	return (-1);
 }
