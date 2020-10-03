@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 22:18:20 by smun              #+#    #+#             */
-/*   Updated: 2020/10/02 16:56:57 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 23:47:36 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		main(void)
 		return (3);
 	if (!do_test("It's a D\0ange\0rou\0s Code", 8, 10, ""))
 		return (4);
-	if (!do_test("", 3, 10, NULL))
+	if (!do_test("", 3, 10, ""))
 		return (5);
 	return (0);
 }

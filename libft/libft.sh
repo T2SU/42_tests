@@ -98,7 +98,7 @@ do_test()
 	if [ ${OPTIONS_NUM} -eq 0 ] || [ $R -ne 0 ]
 	then
 		echo "테스트:: $1"
-		gcc -Wall -Werror -Wextra -I includes/ -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
+		gcc -Wall -Werror -Wextra -I . -L . -l ft $ROOT/libft/$1.c -o $ROOT/tmp/$1.t
 		if [ ! $? -eq 0 ]
 		then
 			echo "[실패] $1 테스트 코드가 컴파일 되지 않았습니다."
