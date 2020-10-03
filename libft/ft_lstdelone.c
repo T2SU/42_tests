@@ -6,7 +6,7 @@
 /*   By: smun <smun@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 06:14:53 by smun              #+#    #+#             */
-/*   Updated: 2020/10/03 17:40:03 by smun             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:41:50 by smun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ int					main(void)
 	i = 0;
 	while (i < 4)
 	{
-		ft_lstdelone(lst[i], (i & 1) ? (&del) : NULL);
+		//ft_lstdelone(lst[i], (i & 1) ? (&del) : NULL);
+		ft_lstdelone(lst[i], &del);
 		i++;
 	}
 	i = 0;
 	while (i < 4)
 	{
-		if ((i & 1) != deleted[i])
+		//if ((i & 1) != deleted[i])
+		if (!deleted[i])
 			return (-1);
 		i++;
 	}
